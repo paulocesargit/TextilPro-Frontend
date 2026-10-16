@@ -1,0 +1,37 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+
+import { Login } from "../pages/Login/Login.jsx";
+import { Dashboard } from "../pages/Dashboard/Dashboard.jsx";
+import { MainLayout } from "../layouts/Mainlayout.jsx";
+import { ProtectedRoute } from "../components/ProtectedReact.jsx";
+import { Vendas } from "../pages/Vendas/Vendas";
+import { NotFound } from "../pages/Notfound/Notfound.jsx";
+import { Configuracoes } from "../pages/Configuracoes/Configuracoes";
+
+export function AppRoutes() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route element={<MainLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+
+            <Route path="/vendas" element={<Vendas />} />
+
+            <Route path="/estoque" element={<h1>Estoque</h1>} />
+
+            <Route path="/pedidos" element={<h1>Pedidos</h1>} />
+
+            <Route path="/configuracoes" element={<Configuracoes />} />
+
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Route>
+
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}

@@ -1,0 +1,179 @@
+.vendas {
+  padding: 24px;
+
+  /* ALTERADO: texto acompanha o tema */
+  color: var(--cor-texto);
+}
+
+.vendasCabecalho {
+  margin-bottom: 24px;
+}
+
+.vendasCabecalho h1 {
+  margin-bottom: 8px;
+  font-size: 26px;
+}
+
+.vendasCabecalho p {
+  margin: 0;
+
+  /* ALTERADO: cor do texto secundário */
+  color: var(--cor-texto-secundario);
+}
+
+.vendasResumo {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.vendasCard {
+  flex: 1;
+  padding: 20px;
+
+  /* ALTERADO: borda e fundo acompanham o tema */
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background-color: var(--cor-card);
+
+  /* ALTERADO: cor do texto */
+  color: var(--cor-texto);
+}
+
+.vendasCard p {
+  margin: 0 0 12px;
+
+  /* ALTERADO: cor do texto secundário */
+  color: var(--cor-texto-secundario);
+}
+
+.vendasCard h2 {
+  margin: 0;
+
+  /* ALTERADO: cor de destaque acompanha o tema */
+  color: var(--cor-destaque);
+  font-size: 23px;
+}
+
+.vendasConteudo {
+  margin-bottom: 24px;
+  padding: 24px;
+
+  /* ALTERADO: borda e fundo acompanham o tema */
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background-color: var(--cor-card);
+
+  /* ALTERADO: cor do texto */
+  color: var(--cor-texto);
+}
+
+.vendasConteudo h2 {
+  margin: 0 0 20px;
+  font-size: 19px;
+}
+
+.vendasConteudo form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.vendasCampo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 180px;
+  gap: 8px;
+}
+
+.vendasCampo label {
+  font-size: 14px;
+  font-weight: 600;
+
+  /* ALTERADO: cor do texto */
+  color: var(--cor-texto);
+}
+
+.vendasCampo input,
+.vendasCampo select {
+  padding: 11px;
+
+  /* ALTERADO: borda, fundo e texto dos campos */
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  background-color: var(--cor-card);
+  color: var(--cor-texto);
+
+  font-size: 14px;
+}
+
+.vendasBotao {
+  align-self: flex-end;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+
+  /* ALTERADO: botão acompanha a cor de destaque */
+  background-color: var(--cor-destaque);
+  color: #ffffff;
+
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.vendasBotao:hover {
+  /* ALTERADO: efeito de destaque ao passar o mouse */
+  opacity: 0.85;
+}
+
+.vendasTabela {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.vendasTabela table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  /* ALTERADO: fundo e texto da tabela */
+  background-color: var(--cor-card);
+  color: var(--cor-texto);
+}
+
+.vendasTabela th,
+.vendasTabela td {
+  padding: 14px;
+
+  /* ALTERADO: borda acompanha o tema */
+  border-bottom: 1px solid var(--cor-borda);
+
+  font-size: 14px;
+}
+
+.vendasTabela th {
+  /* ALTERADO: fundo do cabeçalho da tabela */
+  background-color: var(--cor-selecao);
+  color: var(--cor-texto);
+
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .vendas {
+    padding: 16px;
+  }
+
+  .vendasResumo {
+    flex-direction: column;
+  }
+
+  .vendasConteudo {
+    padding: 16px;
+  }
+
+  .vendasBotao {
+    width: 100%;
+  }
+}
