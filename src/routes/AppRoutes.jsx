@@ -5,6 +5,8 @@ import { Dashboard } from "../pages/Dashboard/Dashboard.jsx";
 import { MainLayout } from "../layouts/Mainlayout.jsx";
 import { ProtectedRoute } from "../components/ProtectedReact.jsx";
 import { Vendas } from "../pages/Vendas/Vendas";
+import { Estoque } from "../pages/Estoque/Estoque.jsx";
+import { Pedidos } from "../pages/Pedidos/Pedidos.jsx";
 import { NotFound } from "../pages/Notfound/Notfound.jsx";
 import { Configuracoes } from "../pages/Configuracoes/Configuracoes";
 
@@ -20,9 +22,9 @@ export function AppRoutes() {
 
             <Route path="/vendas" element={<Vendas />} />
 
-            <Route path="/estoque" element={<h1>Estoque</h1>} />
+            <Route path="/estoque" element={<Estoque />} />
 
-            <Route path="/pedidos" element={<h1>Pedidos</h1>} />
+            <Route path="/pedidos" element={<Pedidos />} />
 
             <Route path="/configuracoes" element={<Configuracoes />} />
 

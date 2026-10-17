@@ -1,7 +1,5 @@
 .vendas {
   padding: 24px;
-
-  /* ALTERADO: texto acompanha o tema */
   color: var(--cor-texto);
 }
 
@@ -16,8 +14,6 @@
 
 .vendasCabecalho p {
   margin: 0;
-
-  /* ALTERADO: cor do texto secundário */
   color: var(--cor-texto-secundario);
 }
 
@@ -30,27 +26,19 @@
 .vendasCard {
   flex: 1;
   padding: 20px;
-
-  /* ALTERADO: borda e fundo acompanham o tema */
   border: 1px solid var(--cor-borda);
   border-radius: 8px;
   background-color: var(--cor-card);
-
-  /* ALTERADO: cor do texto */
   color: var(--cor-texto);
 }
 
 .vendasCard p {
   margin: 0 0 12px;
-
-  /* ALTERADO: cor do texto secundário */
   color: var(--cor-texto-secundario);
 }
 
 .vendasCard h2 {
   margin: 0;
-
-  /* ALTERADO: cor de destaque acompanha o tema */
   color: var(--cor-destaque);
   font-size: 23px;
 }
@@ -58,13 +46,9 @@
 .vendasConteudo {
   margin-bottom: 24px;
   padding: 24px;
-
-  /* ALTERADO: borda e fundo acompanham o tema */
   border: 1px solid var(--cor-borda);
   border-radius: 8px;
   background-color: var(--cor-card);
-
-  /* ALTERADO: cor do texto */
   color: var(--cor-texto);
 }
 
@@ -87,45 +71,256 @@
   gap: 8px;
 }
 
-.vendasCampo label {
+.vendasCampo label,
+.vendasCodigoPix label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--cor-texto);
   font-size: 14px;
   font-weight: 600;
-
-  /* ALTERADO: cor do texto */
-  color: var(--cor-texto);
 }
 
 .vendasCampo input,
-.vendasCampo select {
-  padding: 11px;
-
-  /* ALTERADO: borda, fundo e texto dos campos */
+.vendasCampo select,
+.vendasCodigoPix textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
   border: 1px solid var(--cor-borda);
   border-radius: 6px;
   background-color: var(--cor-card);
   color: var(--cor-texto);
-
-  font-size: 14px;
+  font: inherit;
 }
 
 .vendasBotao {
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
   align-self: flex-end;
+  box-sizing: border-box;
+  width: auto;
+  min-height: 40px;
+  max-width: 100%;
   padding: 12px 20px;
   border: none;
   border-radius: 6px;
-
-  /* ALTERADO: botão acompanha a cor de destaque */
-  background-color: var(--cor-destaque);
+  background-color: var(--cor-principal);
   color: #ffffff;
-
+  font-family: inherit;
   font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  white-space: normal;
   cursor: pointer;
+  transition: opacity 0.2s;
 }
 
 .vendasBotao:hover {
-  /* ALTERADO: efeito de destaque ao passar o mouse */
   opacity: 0.85;
 }
+
+.vendasTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: var(--cor-selecao);
+  color: var(--cor-texto);
+}
+
+.vendasTotal strong {
+  color: var(--cor-principal);
+  font-size: 20px;
+}
+
+/* Área para gerar o Pix */
+
+.vendasPix {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.vendasPix .vendasBotaoSecundario {
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: auto;
+  margin-top: 8px;
+}
+
+.vendasCodigoPix {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 360px;
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background-color: var(--cor-fundo);
+}
+
+.vendasCodigoPix h3 {
+  margin: 0;
+  color: var(--cor-texto);
+  font-size: 16px;
+}
+
+.vendasCodigoPix label {
+  margin-bottom: 0;
+}
+
+.vendasCodigoPix textarea {
+  min-height: 80px;
+  resize: vertical;
+  overflow-wrap: anywhere;
+}
+
+.vendasCodigoPix .vendasBotaoSecundario {
+  align-self: flex-start;
+  width: auto;
+  max-width: 100%;
+}
+
+.vendasQrCode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.vendasQrCode svg {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Botões do formulário */
+
+.vendasAcoes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.vendasAcoes .vendasBotao,
+.vendasAcoes .vendasBotaoCancelar {
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
+  align-self: auto;
+  box-sizing: border-box;
+  width: auto;
+  min-height: 40px;
+  padding: 10px 18px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Botões secundários */
+
+.vendasBotaoSecundario,
+.vendasBotaoCancelar,
+.vendasBotaoEditar,
+.vendasBotaoExcluir {
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 36px;
+  width: auto;
+  padding: 8px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    opacity 0.2s;
+}
+
+.vendasBotaoSecundario {
+  background-color: var(--cor-selecao);
+  color: var(--cor-texto);
+}
+
+.vendasBotaoSecundario:hover {
+  background-color: var(--cor-destaque);
+}
+
+.vendasBotaoCancelar {
+  background-color: var(--cor-selecao);
+  color: var(--cor-texto);
+}
+
+.vendasBotaoCancelar:hover {
+  opacity: 0.8;
+}
+
+/* Botões da tabela */
+
+.vendasAcoesTabela {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  min-width: max-content;
+}
+
+.vendasAcoesTabela button {
+  flex: 0 0 auto;
+}
+
+.vendasBotaoEditar {
+  background-color: var(--cor-selecao);
+  color: var(--cor-texto);
+}
+
+.vendasBotaoEditar:hover {
+  background-color: var(--cor-destaque);
+}
+
+.vendasBotaoExcluir {
+  border-color: #f1c5bf;
+  background-color: #fbe9e7;
+  color: var(--cor-erro);
+}
+
+.vendasBotaoExcluir:hover {
+  background-color: #f5d0cb;
+}
+
+/* Tabela de vendas */
 
 .vendasTabela {
   width: 100%;
@@ -136,29 +331,31 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-
-  /* ALTERADO: fundo e texto da tabela */
   background-color: var(--cor-card);
   color: var(--cor-texto);
 }
 
 .vendasTabela th,
 .vendasTabela td {
-  padding: 14px;
-
-  /* ALTERADO: borda acompanha o tema */
+  padding: 12px 14px;
   border-bottom: 1px solid var(--cor-borda);
-
+  text-align: left;
   font-size: 14px;
+  color: var(--cor-texto);
 }
 
 .vendasTabela th {
-  /* ALTERADO: fundo do cabeçalho da tabela */
   background-color: var(--cor-selecao);
-  color: var(--cor-texto);
-
   font-weight: 600;
+  white-space: nowrap;
 }
+
+.vendasBotaoSecundario:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Ajustes para telas menores */
 
 @media (max-width: 768px) {
   .vendas {
@@ -173,7 +370,36 @@
     padding: 16px;
   }
 
+  .vendasConteudo form {
+    align-items: stretch;
+  }
+
+  .vendasCampo {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
   .vendasBotao {
-    width: 100%;
+    width: auto;
+  }
+
+  .vendasAcoes {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .vendasAcoes .vendasBotao,
+  .vendasAcoes .vendasBotaoCancelar {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .vendasAcoesTabela {
+    gap: 6px;
+  }
+
+  .vendasCodigoPix {
+    max-width: 100%;
   }
 }

@@ -1,55 +1,162 @@
 import { useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import styles from "./Vendas.module.css";
 
-export function Vendas() {
-  const [vendas, setVendas] = useState([
-    {
-      id: 1,
-      cliente: "Maria Silva",
-      produto: "Tecido de algodão",
-      valor: 450,
-      status: "Concluída",
-    },
-    {
-      id: 2,
-      cliente: "João Santos",
-      produto: "Malha PV",
-      valor: 320,
-      status: "Pendente",
-    },
-  ]);
+const vendasIniciais = [
+  {
+    id: 1,
+    cliente: "Maria Silva",
+    produto: "Tecido de algodão",
+    valor: 450,
+    desconto: 0,
+    pagamento: "Pix",
+    parcelas: 1,
+    status: "Concluída",
+  },
+  {
+    id: 2,
+    cliente: "João Santos",
+    produto: "Malha PV",
+    valor: 320,
+    desconto: 0,
+    pagamento: "Dinheiro",
+    parcelas: 1,
+    status: "Pendente",
+  },
+];
 
+export function Vendas() {
+  const [vendas, setVendas] = useState(vendasIniciais);
   const [cliente, setCliente] = useState("");
   const [produto, setProduto] = useState("");
   const [valor, setValor] = useState("");
+  const [desconto, setDesconto] = useState("0");
+  const [pagamento, setPagamento] = useState("Pix");
+  const [parcelas, setParcelas] = useState("1");
   const [status, setStatus] = useState("Pendente");
+  const [vendaEditando, setVendaEditando] = useState(null);
+  const [codigoPix, setCodigoPix] = useState("");
+
+  function limparFormulario() {
+    setCliente("");
+    setProduto("");
+    setValor("");
+    setDesconto("0");
+    setPagamento("Pix");
+    setParcelas("1");
+    setStatus("Pendente");
+    setVendaEditando(null);
+    setCodigoPix("");
+  }
 
   function cadastrarVenda(event) {
     event.preventDefault();
 
     const novaVenda = {
-      id: vendas.length + 1,
-      cliente: cliente,
-      produto: produto,
+      id: vendas.length ? Math.max(...vendas.map((venda) => venda.id)) + 1 : 1,
+      cliente,
+      produto,
       valor: Number(valor),
-      status: status,
+      desconto: Number(desconto),
+      pagamento,
+      parcelas: pagamento === "Cartão de crédito" ? Number(parcelas) : 1,
+      status,
     };
 
     setVendas([...vendas, novaVenda]);
+    limparFormulario();
+  }
 
-    setCliente("");
-    setProduto("");
-    setValor("");
-    setStatus("Pendente");
+  function editarVenda(venda) {
+    setVendaEditando(venda.id);
+    setCliente(venda.cliente);
+    setProduto(venda.produto);
+    setValor(String(venda.valor));
+    setDesconto(String(venda.desconto || 0));
+    setPagamento(venda.pagamento || "Pix");
+    setParcelas(String(venda.parcelas || 1));
+    setStatus(venda.status);
+    setCodigoPix("");
+  }
+
+  function salvarVenda(event) {
+    event.preventDefault();
+
+    const vendasAtualizadas = vendas.map((venda) => {
+      if (venda.id === vendaEditando) {
+        return {
+          ...venda,
+          cliente,
+          produto,
+          valor: Number(valor),
+          desconto: Number(desconto),
+          pagamento,
+          parcelas: pagamento === "Cartão de crédito" ? Number(parcelas) : 1,
+          status,
+        };
+      }
+
+      return venda;
+    });
+
+    setVendas(vendasAtualizadas);
+    limparFormulario();
+  }
+
+  function excluirVenda(id) {
+    const confirmar = window.confirm("Deseja realmente excluir esta venda?");
+
+    if (confirmar) {
+      setVendas(vendas.filter((venda) => venda.id !== id));
+
+      if (vendaEditando === id) {
+        limparFormulario();
+      }
+    }
+  }
+
+  function gerarCodigoPix() {
+    if (codigoPix) {
+      return;
+    }
+
+    if (!valor || Number(valor) <= 0) {
+      alert("Informe um valor válido para gerar o código Pix.");
+      return;
+    }
+
+    const valorFinal = (Number(valor) - Number(desconto || 0)).toFixed(2);
+
+    const codigo = `PIX-AGRESTETEXTIL-${Date.now()}-VALOR-${valorFinal}`;
+
+    setCodigoPix(codigo);
+  }
+
+  async function copiarCodigoPix() {
+    try {
+      await navigator.clipboard.writeText(codigoPix);
+      alert("Código Pix copiado!");
+    } catch {
+      alert("Não foi possível copiar o código.");
+    }
   }
 
   const totalVendido = vendas
     .filter((venda) => venda.status === "Concluída")
-    .reduce((total, venda) => total + venda.valor, 0);
+    .reduce((total, venda) => total + venda.valor - (venda.desconto || 0), 0);
 
   const vendasPendentes = vendas.filter(
     (venda) => venda.status === "Pendente",
   ).length;
+
+  const valorFinal = Math.max(0, Number(valor || 0) - Number(desconto || 0));
+
+  function formatarValor(valor) {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  }
 
   return (
     <div className={styles.vendas}>
@@ -63,16 +170,11 @@ export function Vendas() {
       <div className={styles.vendasResumo}>
         <div className={styles.vendasCard}>
           <p>Total vendido</p>
-          <h2>
-            {totalVendido.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
-          </h2>
+          <h2>{formatarValor(totalVendido)}</h2>
         </div>
 
         <div className={styles.vendasCard}>
-          <p>Vendas realizadas</p>
+          <p>Vendas registradas</p>
           <h2>{vendas.length}</h2>
         </div>
 
@@ -83,9 +185,9 @@ export function Vendas() {
       </div>
 
       <div className={styles.vendasConteudo}>
-        <h2>Registrar nova venda</h2>
+        <h2>{vendaEditando ? "Editar venda" : "Registrar nova venda"}</h2>
 
-        <form onSubmit={cadastrarVenda}>
+        <form onSubmit={vendaEditando ? salvarVenda : cadastrarVenda}>
           <div className={styles.vendasCampo}>
             <label htmlFor="cliente">Nome do cliente</label>
             <input
@@ -97,7 +199,6 @@ export function Vendas() {
               required
             />
           </div>
-
           <div className={styles.vendasCampo}>
             <label htmlFor="produto">Produto</label>
             <input
@@ -116,14 +217,71 @@ export function Vendas() {
               id="valor"
               type="number"
               value={valor}
-              onChange={(event) => setValor(event.target.value)}
+              onChange={(event) => {
+                const novoValor = event.target.value;
+
+                if (novoValor.length <= 10) {
+                  setValor(novoValor);
+                }
+              }}
               placeholder="Ex.: 150"
               min="0.01"
+              max="99999999.99"
               step="0.01"
               required
             />
           </div>
 
+          <div className={styles.vendasCampo}>
+            {" "}
+            <label htmlFor="desconto">Desconto (R$)</label>{" "}
+            <input
+              id="desconto"
+              type="number"
+              value={desconto}
+              onChange={(event) => {
+                const novoDesconto = event.target.value;
+                if (novoDesconto.length <= 10) {
+                  setDesconto(novoDesconto);
+                }
+              }}
+              min="0"
+              max="99999999.99"
+              step="0.01"
+            />{" "}
+          </div>
+          <div className={styles.vendasCampo}>
+            <label htmlFor="pagamento">Forma de pagamento</label>
+            <select
+              id="pagamento"
+              value={pagamento}
+              onChange={(event) => {
+                setPagamento(event.target.value);
+                setCodigoPix("");
+              }}
+            >
+              <option value="Pix">Pix</option>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+            </select>
+          </div>
+          {pagamento === "Cartão de crédito" && (
+            <div className={styles.vendasCampo}>
+              <label htmlFor="parcelas">Parcelamento</label>
+              <select
+                id="parcelas"
+                value={parcelas}
+                onChange={(event) => setParcelas(event.target.value)}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((quantidade) => (
+                  <option key={quantidade} value={quantidade}>
+                    {quantidade}x de {formatarValor(valorFinal / quantidade)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
           <div className={styles.vendasCampo}>
             <label htmlFor="status">Situação</label>
             <select
@@ -136,10 +294,63 @@ export function Vendas() {
               <option value="Cancelada">Cancelada</option>
             </select>
           </div>
+          <div className={styles.vendasTotal}>
+            <span>Valor final:</span>
+            <strong>{formatarValor(valorFinal)}</strong>
+          </div>
+          {/* Botões de ação na mesma linha */}
+          <div className={styles.vendasAcoes}>
+            {pagamento === "Pix" && (
+              <button
+                type="button"
+                className={styles.vendasBotaoSecundario}
+                onClick={gerarCodigoPix}
+                disabled={Boolean(codigoPix)}
+              >
+                {codigoPix ? "Código Pix gerado" : "Gerar código Pix"}
+              </button>
+            )}
 
-          <button type="submit" className={styles.vendasBotao}>
-            Cadastrar venda
-          </button>
+            {vendaEditando && (
+              <button
+                type="button"
+                className={styles.vendasBotaoCancelar}
+                onClick={limparFormulario}
+              >
+                Cancelar edição
+              </button>
+            )}
+
+            <button type="submit" className={styles.vendasBotao}>
+              {vendaEditando ? "Salvar alterações" : "Cadastrar venda"}
+            </button>
+          </div>
+          {/* Exibição do QR Code abaixo dos botões */}
+          {pagamento === "Pix" && codigoPix && (
+            <div className={styles.vendasPix}>
+              <div className={styles.vendasCodigoPix}>
+                <div className={styles.vendasQrCode}>
+                  <QRCodeSVG
+                    value={codigoPix}
+                    size={200}
+                    level="M"
+                    includeMargin
+                  />
+                </div>
+
+                <label htmlFor="codigoPix">Código gerado</label>
+                <textarea id="codigoPix" value={codigoPix} readOnly rows="3" />
+
+                <button
+                  type="button"
+                  className={styles.vendasBotaoSecundario}
+                  onClick={copiarCodigoPix}
+                >
+                  Copiar código
+                </button>
+              </div>
+            </div>
+          )}
         </form>
       </div>
 
@@ -153,26 +364,53 @@ export function Vendas() {
                 <th>Código</th>
                 <th>Cliente</th>
                 <th>Produto</th>
-                <th>Valor</th>
+                <th>Valor final</th>
+                <th>Pagamento</th>
+                <th>Parcelas</th>
                 <th>Situação</th>
+                <th>Ações</th>
               </tr>
             </thead>
 
             <tbody>
               {vendas.map((venda) => (
                 <tr key={venda.id}>
-                  <td>{venda.id}</td>
+                  <td>#{venda.id}</td>
                   <td>{venda.cliente}</td>
                   <td>{venda.produto}</td>
+                  <td>{formatarValor(venda.valor - (venda.desconto || 0))}</td>
+                  <td>{venda.pagamento || "Não informado"}</td>
                   <td>
-                    {venda.valor.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
+                    {venda.pagamento === "Cartão de crédito"
+                      ? `${venda.parcelas || 1}x`
+                      : "-"}
                   </td>
                   <td>{venda.status}</td>
+                  <td className={styles.vendasAcoesTabela}>
+                    <button
+                      type="button"
+                      className={styles.vendasBotaoEditar}
+                      onClick={() => editarVenda(venda)}
+                    >
+                      Editar
+                    </button>
+
+                    <button
+                      type="button"
+                      className={styles.vendasBotaoExcluir}
+                      onClick={() => excluirVenda(venda.id)}
+                    >
+                      Excluir
+                    </button>
+                  </td>
                 </tr>
               ))}
+
+              {vendas.length === 0 && (
+                <tr>
+                  <td colSpan="8">Nenhuma venda cadastrada.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
