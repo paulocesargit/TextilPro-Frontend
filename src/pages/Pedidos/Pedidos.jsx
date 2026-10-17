@@ -176,7 +176,11 @@ export function Pedidos() {
                   max="99999999.99"
                   step="0.01"
                   value={valor}
-                  onChange={(event) => setValor(event.target.value)}
+                  onChange={(event) => {
+                    if (event.target.value.length <= 10) {
+                      setValor(event.target.value);
+                    }
+                  }}
                   placeholder="0,00"
                   required
                 />

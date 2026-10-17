@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ShoppingCart, ClipboardList, Package, Users } from "lucide-react";
 
 import styles from "./Dashboard.module.css";
@@ -26,11 +27,12 @@ const indicadores = [
 ];
 
 export function Dashboard() {
+  const [usuario] = useState(localStorage.getItem("usuario") || "");
   return (
     <div className={styles.dashboard}>
       <header className={styles.cabecalho}>
         <div>
-          <h1>Dashboard</h1>
+          <h1>Seja bem-vindo, {usuario}!</h1>
           <p>Confira o resumo da sua confecção.</p>
         </div>
       </header>

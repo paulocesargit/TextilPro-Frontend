@@ -9,7 +9,7 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
-import logo from "../../assets/LGAgresteTextilSF.png";
+import logo from "../../assets/RenderTextilpro.png";
 
 import styles from "./Sidebar.module.css";
 

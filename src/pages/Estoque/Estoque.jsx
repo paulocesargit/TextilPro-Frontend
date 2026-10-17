@@ -188,7 +188,11 @@ export function Estoque() {
                   max="99999999.99"
                   step="0.01"
                   value={preco}
-                  onChange={(event) => setPreco(event.target.value)}
+                  onChange={(event) => {
+                    if (event.target.value.length <= 10) {
+                      setPreco(event.target.value);
+                    }
+                  }}
                   required
                 />
               </div>
