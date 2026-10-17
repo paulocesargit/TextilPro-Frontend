@@ -1,6 +1,5 @@
 import { AppRoutes } from "./routes/AppRoutes.jsx";
 import { Toaster } from "sonner";
-
 export default function App() {
   return (
     <>

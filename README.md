@@ -83,65 +83,6 @@ Abordagem de estilização que permite organizar os estilos por componente e red
 
 ---
 
-## 📚 Bibliotecas utilizadas
-
-### 🧭 React Router
-
-Responsável pelo gerenciamento da navegação entre as páginas do sistema.
-
-**Utilizado para:**
-
-- Configurar as rotas da aplicação.
-- Navegar entre os módulos.
-- Criar links de navegação.
-- Identificar a rota ativa no menu lateral.
-
-📖 [Documentação oficial do React Router](https://reactrouter.com/)
-
-### 🔔 Sonner
-
-Biblioteca utilizada para exibir notificações temporárias e fornecer feedback visual ao usuário.
-
-**Utilizado para:**
-
-- Exibir mensagens de sucesso.
-- Informar sobre erros.
-- Apresentar avisos.
-- Comunicar o resultado de determinadas operações.
-
-📖 [Documentação oficial do Sonner](https://sonner.emilkowal.ski/)
-
-### 🎨 Lucide React
-
-Biblioteca de ícones personalizáveis utilizada para melhorar a identificação visual dos elementos da interface.
-
-**Utilizado para:**
-
-- Ícones da barra lateral.
-- Botões e ações.
-- Elementos de navegação.
-- Identificação dos módulos do sistema.
-
-📖 [Documentação oficial do Lucide](https://lucide.dev/)
-
-### 📱 qrcode.react
-
-Biblioteca que permite gerar QR Codes diretamente nos componentes React.
-
-**Utilizado para:**
-
-- Gerar códigos QR no módulo de vendas.
-
-📖 [Repositório e documentação do qrcode.react](https://github.com/rosskhanas/qrcode.react)
-
-### ⚛️ React DOM
-
-Biblioteca responsável por renderizar a interface React no navegador.
-
-📖 [Documentação oficial do React DOM](https://react.dev/reference/react-dom)
-
----
-
 ## 🖥️ Interface e experiência do usuário
 
 O TextilPro busca oferecer uma experiência simples e consistente, priorizando a organização das informações e a facilidade de navegação.
@@ -174,9 +115,9 @@ textilpro-frontend/
 │   │   ├── Vendas/
 │   │   ├── Estoque/
 │   │   ├── Pedidos/
-│   │   ├── Comissoes/
-│   │   ├── Relatorios/
 │   │   └── Configuracoes/
+│   │
+│   │
 │   ├── routes/
 │   ├── App.jsx
 │   ├── main.jsx
@@ -272,14 +213,6 @@ O projeto utiliza práticas que contribuem para a organização e a manutenção
 - **Navegação por rotas:** gerenciamento das páginas com React Router.
 - **Estilização modular:** redução de conflitos entre classes CSS.
 - **Feedback visual:** notificações para informar o resultado das operações.
-
----
-
-## 👨‍💻 Sobre o desenvolvimento
-
-O TextilPro é um projeto de desenvolvimento frontend voltado à aplicação prática de conhecimentos em desenvolvimento web e à criação de soluções digitais para o setor têxtil.
-
-A proposta é unir tecnologia, organização e facilidade de uso em uma ferramenta direcionada às necessidades de gestão de confecções.
 
 ---
 

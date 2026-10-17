@@ -21,7 +21,7 @@ export function Configuracoes() {
     <main className={styles.pagina}>
       <header className={styles.cabecalho}>
         <h1>Configurações</h1>
-        <p>Personalize a aparência do Agreste Têxtil.</p>
+        <p>Personalize a aparência do TêxtilPro.</p>
       </header>
 
       <section className={styles.secao}>

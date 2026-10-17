@@ -5,11 +5,11 @@ import { Cadastro } from "../pages/Cadastro/Cadastro.jsx";
 import { Dashboard } from "../pages/Dashboard/Dashboard.jsx";
 import { MainLayout } from "../layouts/Mainlayout.jsx";
 import { ProtectedRoute } from "../components/ProtectedReact.jsx";
-import { Vendas } from "../pages/Vendas/Vendas";
+import { Vendas } from "../pages/Vendas/Vendas.jsx";
 import { Estoque } from "../pages/Estoque/Estoque.jsx";
 import { Pedidos } from "../pages/Pedidos/Pedidos.jsx";
 import { NotFound } from "../pages/Notfound/Notfound.jsx";
-import { Configuracoes } from "../pages/Configuracoes/Configuracoes";
+import { Configuracoes } from "../pages/Configuracoes/Configuracoes.jsx";
 
 export function AppRoutes() {
   return (

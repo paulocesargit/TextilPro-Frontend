@@ -8,8 +8,9 @@ import {
   ChartColumn,
   Settings,
   LogOut,
+  UsersRound,
 } from "lucide-react";
-import logo from "../../assets/RenderTextilpro.png";
+import logo from "../../assets/RenderTextilProC.png";
 
 import styles from "./Sidebar.module.css";
 
