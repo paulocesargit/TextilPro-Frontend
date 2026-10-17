@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { toast } from "sonner";
 import styles from "./Vendas.module.css";
 
 const vendasIniciais = [
@@ -121,13 +122,13 @@ export function Vendas() {
     }
 
     if (!valor || Number(valor) <= 0) {
-      alert("Informe um valor válido para gerar o código Pix.");
+      toast.warning("Informe um valor válido para gerar o código Pix.");
       return;
     }
 
     const valorFinal = (Number(valor) - Number(desconto || 0)).toFixed(2);
 
-    const codigo = `PIX-AGRESTETEXTIL-${Date.now()}-VALOR-${valorFinal}`;
+    const codigo = `PIX-TEXTILPRO-${Date.now()}-VALOR-${valorFinal}`;
 
     setCodigoPix(codigo);
   }
@@ -135,9 +136,9 @@ export function Vendas() {
   async function copiarCodigoPix() {
     try {
       await navigator.clipboard.writeText(codigoPix);
-      alert("Código Pix copiado!");
+      toast.success("Código Pix copiado!");
     } catch {
-      alert("Não foi possível copiar o código.");
+      toast.error("Não foi possível copiar o código.");
     }
   }
 
@@ -298,7 +299,6 @@ export function Vendas() {
             <span>Valor final:</span>
             <strong>{formatarValor(valorFinal)}</strong>
           </div>
-          {/* Botões de ação na mesma linha */}
           <div className={styles.vendasAcoes}>
             {pagamento === "Pix" && (
               <button
@@ -325,7 +325,6 @@ export function Vendas() {
               {vendaEditando ? "Salvar alterações" : "Cadastrar venda"}
             </button>
           </div>
-          {/* Exibição do QR Code abaixo dos botões */}
           {pagamento === "Pix" && codigoPix && (
             <div className={styles.vendasPix}>
               <div className={styles.vendasCodigoPix}>

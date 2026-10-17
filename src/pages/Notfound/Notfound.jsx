@@ -14,7 +14,7 @@ export function NotFound() {
 
       <h2>Página não encontrada</h2>
 
-      <p>A página que você está procurando não existe ou foi movida.</p>
+      <p>A página que você está procurando não existe ou foi removida.</p>
 
       <button onClick={voltarInicio}>Voltar ao início</button>
     </div>

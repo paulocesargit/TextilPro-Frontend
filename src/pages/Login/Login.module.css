@@ -6,7 +6,10 @@
   justify-content: center;
 
   padding: 24px;
-  background: var(--cor-fundo);
+  /*background: var(--cor-fundo);*/
+  background-image: url("../../assets/dona_francisca.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .formulario {

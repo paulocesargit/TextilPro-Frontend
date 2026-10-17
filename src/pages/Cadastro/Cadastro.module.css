@@ -4,7 +4,10 @@
   justify-content: center;
   align-items: center;
   padding: 24px;
-  background-color: #f5f3ee;
+  /* background-color: #f5f3ee;*/
+  background-image: url("../../assets/Denivaldo.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .formulario {

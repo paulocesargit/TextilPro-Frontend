@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./Estoque.module.css";
+import { toast } from "sonner";
 
 const produtosIniciais = [
   {
@@ -65,6 +66,7 @@ export function Estoque() {
     };
 
     setProdutos([...produtos, novoProduto]);
+    toast.success("Produto cadastrado com sucesso!");
     limparFormulario();
   }
 
@@ -95,6 +97,7 @@ export function Estoque() {
     });
 
     setProdutos(produtosAtualizados);
+    toast.success("Produto atualizado com sucesso!");
     limparFormulario();
   }
 
@@ -102,6 +105,8 @@ export function Estoque() {
     const produtosAtualizados = produtos.filter((produto) => produto.id !== id);
 
     setProdutos(produtosAtualizados);
+
+    toast.success("Produto excluído com sucesso!");
   }
 
   const produtosFiltrados = produtos.filter((produto) =>
@@ -141,7 +146,6 @@ export function Estoque() {
       {formularioAberto && (
         <section className={styles.formulario}>
           <h2>{produtoEditando ? "Editar produto" : "Cadastrar produto"}</h2>
-
           <form onSubmit={produtoEditando ? salvarProduto : cadastrarProduto}>
             <div className={styles.camposFormulario}>
               <div className={styles.campo}>
