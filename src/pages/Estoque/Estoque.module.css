@@ -230,7 +230,7 @@
 
 .botaoEditar {
   background-color: var(--cor-selecao);
-  color: var(--cor-secundaria);
+  color: var(--cor-texto);
   border-color: var(--cor-borda);
 }
 
