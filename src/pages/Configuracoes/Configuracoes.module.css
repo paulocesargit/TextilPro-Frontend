@@ -3,6 +3,7 @@
   padding: 32px;
   background-color: var(--cor-fundo);
   color: var(--cor-texto);
+
   transition:
     background-color 0.3s,
     color 0.3s;
@@ -39,6 +40,7 @@
 }
 
 .tituloSecao > svg {
+  flex-shrink: 0;
   color: var(--cor-destaque);
 }
 
@@ -50,6 +52,102 @@
 .tituloSecao p {
   margin: 0;
   font-size: 14px;
+  color: var(--cor-texto-secundario);
+}
+
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding-top: 22px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.campo label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.campo input {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  outline: none;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.campo input::placeholder {
+  color: var(--cor-texto-secundario);
+  opacity: 0.8;
+}
+
+.campo input:focus {
+  border-color: var(--cor-principal);
+  box-shadow: 0 0 0 2px var(--cor-selecao);
+}
+
+.acoesFormulario {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 22px;
+}
+
+.botaoSalvar,
+.botaoCreditos {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--cor-principal);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+.botaoSalvar:hover,
+.botaoCreditos:hover {
+  filter: brightness(0.92);
+}
+
+.botaoSalvar:active,
+.botaoCreditos:active {
+  transform: scale(0.98);
+}
+
+.botaoSalvar:focus-visible,
+.botaoCreditos:focus-visible,
+.botaoRestaurar:focus-visible,
+.botoesTema button:focus-visible {
+  outline: 2px solid var(--cor-principal);
+  outline-offset: 3px;
+}
+
+.ajuda {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
   color: var(--cor-texto-secundario);
 }
 
@@ -70,6 +168,7 @@
   margin: 0;
   color: var(--cor-texto-secundario);
   font-size: 14px;
+  line-height: 1.5;
 }
 
 .botoesTema {
@@ -87,6 +186,9 @@
   background-color: var(--cor-card);
   color: var(--cor-texto);
   cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
 }
 
 .botoesTema button.selecionado {
@@ -98,6 +200,7 @@
 .botaoRestaurar {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 10px 14px;
   border: 1px solid var(--cor-borda);
@@ -105,19 +208,32 @@
   background-color: var(--cor-card);
   color: var(--cor-texto);
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .botaoRestaurar:hover {
   background-color: var(--cor-selecao);
 }
 
-@media (max-width: 600px) {
+.versao {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--cor-texto-secundario);
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
   .pagina {
     padding: 20px;
   }
 
   .secao {
     padding: 18px;
+  }
+
+  .formulario {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
   .opcao {
@@ -127,5 +243,29 @@
 
   .botoesTema {
     flex-wrap: wrap;
+  }
+
+  .botaoSalvar,
+  .botaoCreditos,
+  .botaoRestaurar {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .pagina {
+    padding: 14px;
+  }
+
+  .secao {
+    padding: 14px;
+  }
+
+  .cabecalho h1 {
+    font-size: 24px;
+  }
+
+  .tituloSecao h2 {
+    font-size: 17px;
   }
 }

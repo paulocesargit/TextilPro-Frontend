@@ -1,6 +1,10 @@
 .sidebar {
   width: 240px;
-  min-height: 100vh;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+
   background: var(--cor-secundaria);
   color: var(--cor-branco);
 
@@ -8,8 +12,8 @@
   flex-direction: column;
 
   padding: 24px 16px;
+  box-sizing: border-box;
 }
-
 .logo {
   display: flex;
   flex-direction: column;
@@ -74,16 +78,21 @@
   gap: 12px;
 
   margin-top: auto;
-  padding: 12px;
+  flex-shrink: 0;
 
+  padding: 12px;
   border: none;
   border-radius: 8px;
 
   color: #ffff;
   background: transparent;
   text-align: left;
+  cursor: pointer;
 }
 
+.botaoSair:hover {
+  background: #304a42;
+}
 .botaoSair:hover {
   background: #304a42;
 }

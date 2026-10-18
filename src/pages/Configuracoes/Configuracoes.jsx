@@ -1,5 +1,22 @@
 import { useEffect, useState } from "react";
-import { Palette, Sun, Moon, RotateCcw } from "lucide-react";
+
+import {
+  Palette,
+  Sun,
+  Moon,
+  RotateCcw,
+  Building2,
+  UserRound,
+  ShieldCheck,
+  Info,
+  CodeXml,
+  Save,
+} from "lucide-react";
+
+import { toast } from "sonner";
+
+import { Creditos } from "../../components/Creditos/Creditos.jsx";
+
 import styles from "./Configuracoes.module.css";
 
 export function Configuracoes() {
@@ -7,22 +24,322 @@ export function Configuracoes() {
     return localStorage.getItem("tema") || "claro";
   });
 
+  const [empresa, setEmpresa] = useState(() => {
+    return (
+      JSON.parse(localStorage.getItem("dadosEmpresa")) || {
+        nome: "",
+        cnpj: "",
+        telefone: "",
+        email: "",
+        cidade: "",
+        estado: "",
+      }
+    );
+  });
+
+  const [usuario, setUsuario] = useState(localStorage.getItem("usuario") || "");
+
+  const [senhaAtual, setSenhaAtual] = useState("");
+  const [novaSenha, setNovaSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [creditosAberto, setCreditosAberto] = useState(false);
+
   useEffect(() => {
     localStorage.setItem("tema", tema);
 
     document.documentElement.setAttribute("data-tema", tema);
   }, [tema]);
 
+  function atualizarEmpresa(event) {
+    const { name, value } = event.target;
+
+    setEmpresa((dadosAtuais) => ({
+      ...dadosAtuais,
+      [name]: value,
+    }));
+  }
+
+  function salvarEmpresa(event) {
+    event.preventDefault();
+
+    localStorage.setItem("dadosEmpresa", JSON.stringify(empresa));
+
+    toast.success("Dados da empresa salvos com sucesso!");
+  }
+
+  function salvarConta(event) {
+    event.preventDefault();
+
+    if (!senhaAtual) {
+      toast.warning("Digite sua senha atual para continuar.");
+      return;
+    }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    const indiceUsuario = usuarios.findIndex(
+      (item) => item.usuario === localStorage.getItem("usuario"),
+    );
+
+    if (indiceUsuario === -1) {
+      toast.error("Não foi possível encontrar sua conta.");
+      return;
+    }
+
+    const contaAtual = usuarios[indiceUsuario];
+
+    if (contaAtual.senha !== senhaAtual) {
+      toast.error("A senha atual está incorreta.");
+      return;
+    }
+
+    const usuarioExiste = usuarios.some(
+      (item, indice) => indice !== indiceUsuario && item.usuario === usuario,
+    );
+
+    if (!usuario.trim()) {
+      toast.warning("Digite um nome de usuário.");
+      return;
+    }
+
+    if (usuarioExiste) {
+      toast.warning("Esse nome de usuário já está em uso.");
+      return;
+    }
+
+    if (novaSenha || confirmarSenha) {
+      if (!novaSenha || !confirmarSenha) {
+        toast.warning("Preencha os dois campos da nova senha.");
+        return;
+      }
+
+      if (novaSenha !== confirmarSenha) {
+        toast.error("As novas senhas não coincidem.");
+        return;
+      }
+
+      if (novaSenha === senhaAtual) {
+        toast.warning("A nova senha deve ser diferente da atual.");
+        return;
+      }
+
+      contaAtual.senha = novaSenha;
+    }
+
+    contaAtual.usuario = usuario.trim();
+
+    usuarios[indiceUsuario] = contaAtual;
+
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    localStorage.setItem("usuario", usuario.trim());
+
+    setSenhaAtual("");
+    setNovaSenha("");
+    setConfirmarSenha("");
+
+    toast.success("Dados da conta atualizados com sucesso!");
+  }
+
   function restaurarPadrao() {
     setTema("claro");
+
+    toast.success("Tema claro restaurado!");
   }
 
   return (
     <main className={styles.pagina}>
       <header className={styles.cabecalho}>
         <h1>Configurações</h1>
-        <p>Personalize a aparência do TêxtilPro.</p>
+        <p>Gerencie os dados da empresa e personalize o TextilPro.</p>
       </header>
+      <section className={styles.secao}>
+        <div className={styles.tituloSecao}>
+          <Building2 size={22} />
+
+          <div>
+            <h2>Dados da empresa</h2>
+            <p>Gerencie as informações da sua confecção.</p>
+          </div>
+        </div>
+
+        <form onSubmit={salvarEmpresa}>
+          <div className={styles.formulario}>
+            <div className={styles.campo}>
+              <label htmlFor="nome">Nome da empresa</label>
+
+              <input
+                id="nome"
+                name="nome"
+                type="text"
+                placeholder="Ex.: Agreste Têxtil"
+                value={empresa.nome}
+                onChange={atualizarEmpresa}
+                required
+              />
+            </div>
+
+            <div className={styles.campo}>
+              <label htmlFor="cnpj">CNPJ</label>
+
+              <input
+                id="cnpj"
+                name="cnpj"
+                type="text"
+                placeholder="Digite o CNPJ"
+                value={empresa.cnpj}
+                onChange={atualizarEmpresa}
+              />
+            </div>
+
+            <div className={styles.campo}>
+              <label htmlFor="telefone">Telefone</label>
+
+              <input
+                id="telefone"
+                name="telefone"
+                type="tel"
+                placeholder="Digite o telefone"
+                value={empresa.telefone}
+                onChange={atualizarEmpresa}
+              />
+            </div>
+
+            <div className={styles.campo}>
+              <label htmlFor="email">E-mail</label>
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="empresa@email.com"
+                value={empresa.email}
+                onChange={atualizarEmpresa}
+              />
+            </div>
+
+            <div className={styles.campo}>
+              <label htmlFor="cidade">Cidade</label>
+
+              <input
+                id="cidade"
+                name="cidade"
+                type="text"
+                placeholder="Digite a cidade"
+                value={empresa.cidade}
+                onChange={atualizarEmpresa}
+              />
+            </div>
+
+            <div className={styles.campo}>
+              <label htmlFor="estado">Estado</label>
+
+              <input
+                id="estado"
+                name="estado"
+                type="text"
+                placeholder="Ex.: PE"
+                maxLength={2}
+                value={empresa.estado}
+                onChange={(event) =>
+                  setEmpresa((dadosAtuais) => ({
+                    ...dadosAtuais,
+                    estado: event.target.value.toUpperCase(),
+                  }))
+                }
+              />
+            </div>
+          </div>
+
+          <div className={styles.acoesFormulario}>
+            <button type="submit" className={styles.botaoSalvar}>
+              <Save size={17} />
+              Salvar dados da empresa
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section className={styles.secao}>
+        <div className={styles.tituloSecao}>
+          <UserRound size={22} />
+
+          <div>
+            <h2>Minha conta</h2>
+            <p>Atualize seu usuário e sua senha de acesso.</p>
+          </div>
+        </div>
+
+        <form onSubmit={salvarConta}>
+          <div className={styles.formulario}>
+            <div className={styles.campo}>
+              <label htmlFor="usuario">Nome de usuário</label>
+
+              <input
+                id="usuario"
+                type="text"
+                placeholder="Digite seu usuário"
+                value={usuario}
+                onChange={(event) =>
+                  setUsuario(event.target.value.replace(/[^a-zA-ZÀ-ÿ]/g, ""))
+                }
+                required
+              />
+            </div>
+
+            <div className={styles.campo}>
+              <label htmlFor="senhaAtual">Senha atual</label>
+
+              <input
+                id="senhaAtual"
+                type="password"
+                placeholder="Digite sua senha atual"
+                value={senhaAtual}
+                onChange={(event) => setSenhaAtual(event.target.value)}
+                maxLength={5}
+                required
+              />
+            </div>
+
+            <div className={styles.campo}>
+              <label htmlFor="novaSenha">Nova senha</label>
+
+              <input
+                id="novaSenha"
+                type="password"
+                placeholder="Digite a nova senha"
+                value={novaSenha}
+                onChange={(event) => setNovaSenha(event.target.value)}
+                maxLength={5}
+              />
+            </div>
+
+            <div className={styles.campo}>
+              <label htmlFor="confirmarSenha">Confirmar nova senha</label>
+
+              <input
+                id="confirmarSenha"
+                type="password"
+                placeholder="Digite a senha novamente"
+                value={confirmarSenha}
+                onChange={(event) => setConfirmarSenha(event.target.value)}
+                maxLength={5}
+              />
+            </div>
+          </div>
+
+          <p className={styles.ajuda}>
+            Para alterar seus dados, informe sua senha atual. Para manter a
+            senha, deixe os campos de nova senha vazios.
+          </p>
+
+          <div className={styles.acoesFormulario}>
+            <button type="submit" className={styles.botaoSalvar}>
+              <ShieldCheck size={17} />
+              Atualizar conta
+            </button>
+          </div>
+        </form>
+      </section>
 
       <section className={styles.secao}>
         <div className={styles.tituloSecao}>
@@ -68,7 +385,7 @@ export function Configuracoes() {
 
           <div>
             <h2>Preferências</h2>
-            <p>Gerencie suas configurações.</p>
+            <p>Restaure as configurações de aparência.</p>
           </div>
         </div>
 
@@ -88,6 +405,39 @@ export function Configuracoes() {
           </button>
         </div>
       </section>
+
+      <section className={styles.secao}>
+        <div className={styles.tituloSecao}>
+          <Info size={22} />
+
+          <div>
+            <h2>Sobre o TextilPro</h2>
+            <p>Conheça mais sobre o sistema e sua equipe.</p>
+          </div>
+        </div>
+
+        <div className={styles.opcao}>
+          <div>
+            <h3>TextilPro</h3>
+            <p>Sistema de gerenciamento para negócios têxteis.</p>
+            <span className={styles.versao}>Versão 1.0.0</span>
+          </div>
+
+          <button
+            type="button"
+            className={styles.botaoCreditos}
+            onClick={() => setCreditosAberto(true)}
+          >
+            <CodeXml size={18} />
+            Ver créditos
+          </button>
+        </div>
+      </section>
+
+      <Creditos
+        aberto={creditosAberto}
+        fechar={() => setCreditosAberto(false)}
+      />
     </main>
   );
 }
