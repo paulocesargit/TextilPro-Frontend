@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { Loading } from "../../components/Loanding/Loading.jsx";
 import styles from "./Login.module.css";
 import logo from "../../assets/RenderTextilpro.png";
 
 export function Login() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
+  const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
 
   function entrar(event) {
@@ -25,8 +27,13 @@ export function Login() {
 
     if (usuarioEncontrado) {
       localStorage.setItem("usuario", usuarioEncontrado.usuario);
+      localStorage.setItem("genero", usuarioEncontrado.genero);
 
-      navigate("/dashboard");
+      setCarregando(true);
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
     } else {
       toast.error("Usuário ou senha incorretos.");
 
@@ -54,6 +61,11 @@ export function Login() {
     }
   }
 */
+
+  if (carregando) {
+    return <Loading mensagem="Preparando seu ambiente..." />;
+  }
+
   return (
     <div className={styles.login}>
       <form className={styles.formulario} onSubmit={entrar}>
@@ -68,7 +80,9 @@ export function Login() {
           type="text"
           placeholder="Digite seu usuário"
           value={usuario}
-          onChange={(event) => setUsuario(event.target.value)}
+          onChange={(event) =>
+            setUsuario(event.target.value.replace(/[^a-zA-ZÀ-ÿ]/g, ""))
+          }
         />
 
         <label htmlFor="senha">Senha</label>
@@ -77,6 +91,7 @@ export function Login() {
           type="password"
           placeholder="Digite sua senha"
           value={senha}
+          maxLength={5}
           onChange={(event) => setSenha(event.target.value)}
         />
 

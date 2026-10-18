@@ -28,11 +28,15 @@ const indicadores = [
 
 export function Dashboard() {
   const [usuario] = useState(localStorage.getItem("usuario") || "");
+  const [genero] = useState(localStorage.getItem("genero") || "");
   return (
     <div className={styles.dashboard}>
       <header className={styles.cabecalho}>
         <div>
-          <h1>Seja bem-vindo, {usuario}!</h1>
+          <h2>
+            {" "}
+            Seja {genero === "Feminino" ? "bem-vinda" : "bem-vindo"}, {usuario}!
+          </h2>
           <p>Confira o resumo da sua confecção.</p>
         </div>
       </header>

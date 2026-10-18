@@ -11,6 +11,7 @@ export function Cadastro() {
 
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
+  const [genero, setGenero] = useState("");
 
   const navigate = useNavigate();
 
@@ -39,13 +40,14 @@ export function Cadastro() {
     usuarios.push({
       usuario: usuario,
       senha: senha,
+      genero: genero,
     });
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     toast.success("Cadastro realizado com sucesso!");
 
-    navigate("/");
+    navigate("/login");
   }
 
   /* function cadastrar(event) {
@@ -78,7 +80,9 @@ export function Cadastro() {
           type="text"
           placeholder="Digite seu usuário"
           value={usuario}
-          onChange={(event) => setUsuario(event.target.value)}
+          onChange={(event) =>
+            setUsuario(event.target.value.replace(/[^a-zA-ZÀ-ÿ]/g, ""))
+          }
         />
 
         <label htmlFor="senha">Senha</label>
@@ -88,6 +92,7 @@ export function Cadastro() {
             type={mostrarSenha ? "text" : "password"}
             placeholder="Crie uma senha"
             value={senha}
+            maxLength={5}
             onChange={(event) => setSenha(event.target.value)}
           />
 
@@ -107,6 +112,7 @@ export function Cadastro() {
             type={mostrarConfirmarSenha ? "text" : "password"}
             placeholder="Digite a senha novamente"
             value={confirmarSenha}
+            maxLength={5}
             onChange={(event) => setConfirmarSenha(event.target.value)}
           />
 
@@ -120,12 +126,27 @@ export function Cadastro() {
             {mostrarConfirmarSenha ? "🙈" : "👁"}
           </button>
         </div>
-
+        <div className={styles.campogenero}>
+          <label htmlFor="genero">Gênero</label>
+          <div className={styles.selectSet}>
+            <select
+              id="genero"
+              name="genero"
+              value={genero}
+              onChange={(e) => setGenero(e.target.value)}
+              required
+            >
+              <option value="">Selecione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+            </select>
+          </div>
+        </div>
         <button type="submit">Criar conta</button>
 
         <div className={styles.voltarLogin}>
           <span>Já tem uma conta?</span>
-          <button type="button" onClick={() => navigate("/")}>
+          <button type="button" onClick={() => navigate("/login")}>
             Entrar
           </button>
         </div>

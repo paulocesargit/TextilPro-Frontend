@@ -1,4 +1,5 @@
-import { NavLink } from "react-router";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -11,6 +12,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import logo from "../../assets/RenderTextilProC.png";
+import { Loading } from "../Loanding/Loading";
 
 import styles from "./Sidebar.module.css";
 
@@ -53,9 +55,20 @@ const menuItems = [
 ];
 
 export function Sidebar() {
+  const navigate = useNavigate();
+  const [carregando, setCarregando] = useState(false);
   function sair() {
-    localStorage.removeItem("usuario");
-    window.location.href = "/login";
+    setCarregando(true);
+
+    setTimeout(() => {
+      localStorage.removeItem("usuario");
+      localStorage.removeItem("genero");
+      navigate("/login");
+    }, 2000);
+  }
+
+  if (carregando) {
+    return <Loading mensagem="Saindo da sua conta..." />;
   }
 
   return (
