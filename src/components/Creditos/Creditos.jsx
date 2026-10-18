@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 
 import { X, CodeXml } from "lucide-react";
 import { FaLinkedin } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 
 import styles from "./Creditos.module.css";
 
@@ -114,7 +115,7 @@ export function Creditos({ aberto, fechar }) {
                       aria-label={`GitHub de ${desenvolvedor.nome}`}
                       title="GitHub"
                     >
-                      <CodeXml size={19} />
+                      <FaGithub size={19} />
                     </a>
                   )}
 
