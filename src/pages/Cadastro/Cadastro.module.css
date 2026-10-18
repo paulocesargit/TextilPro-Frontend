@@ -85,6 +85,15 @@
   font-size: 13px;
 }
 
+.carregamentoLogin {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .voltarLogin button {
   padding: 0;
   border: none;

@@ -21,7 +21,9 @@ import styles from "./Configuracoes.module.css";
 
 export function Configuracoes() {
   const [tema, setTema] = useState(() => {
-    return localStorage.getItem("tema") || "claro";
+    const usuarioAtual = localStorage.getItem("usuario");
+
+    return localStorage.getItem(`tema_${usuarioAtual}`) || "claro";
   });
 
   const [empresa, setEmpresa] = useState(() => {
@@ -45,7 +47,11 @@ export function Configuracoes() {
   const [creditosAberto, setCreditosAberto] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("tema", tema);
+    const usuarioAtual = localStorage.getItem("usuario");
+
+    if (usuarioAtual) {
+      localStorage.setItem(`tema_${usuarioAtual}`, tema);
+    }
 
     document.documentElement.setAttribute("data-tema", tema);
   }, [tema]);

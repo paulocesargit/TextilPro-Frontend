@@ -20,7 +20,7 @@
   max-width: 400px;
 
   padding: 36px;
-  background: var(--cor-branco);
+  background: #ffffff;
 
   border: 1px solid #e9e5df;
   border-radius: 14px;
@@ -42,12 +42,13 @@
 .formulario p {
   margin: 10px 0 28px;
   text-align: center;
-  color: var(--cor-texto-secundario);
+  color: #252525;
 }
 
 .formulario label {
   margin-bottom: 8px;
   font-size: 14px;
+  color: #252525;
 }
 
 .formulario input {
@@ -72,6 +73,15 @@
 
 .formulario button:hover {
   opacity: 0.9;
+}
+
+.carregamentoCadastro {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .criarConta {

@@ -17,7 +17,7 @@ const desenvolvedores = [
   },
   {
     id: 2,
-    nome: "Luiz Felipe Basante",
+    nome: "",
     funcao: "",
     github: "",
     linkedin: "",

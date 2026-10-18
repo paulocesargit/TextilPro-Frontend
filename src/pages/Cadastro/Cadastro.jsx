@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./Cadastro.module.css";
+import { LoadingF } from "../../components/LoandingFormulario/LoadingF";
 import logo from "../../assets/RenderTextilpro.png";
 import { toast } from "sonner";
 
@@ -11,6 +12,7 @@ export function Cadastro() {
 
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
+  const [carregarLogin, setcarregarLogin] = useState(false);
   const [genero, setGenero] = useState("");
 
   const navigate = useNavigate();
@@ -50,6 +52,14 @@ export function Cadastro() {
     navigate("/login");
   }
 
+  function irParaLogin() {
+    setcarregarLogin(true);
+
+    setTimeout(() => {
+      navigate("/Login");
+    }, 2000);
+  }
+
   /* function cadastrar(event) {
     event.preventDefault();
 
@@ -72,84 +82,92 @@ export function Cadastro() {
       <form className={styles.formulario} onSubmit={cadastrar}>
         <img src={logo} alt="TextilPro Têxtil" />
 
-        <p>Crie sua conta</p>
-
-        <label htmlFor="usuario">Usuário</label>
-        <input
-          id="usuario"
-          type="text"
-          placeholder="Digite seu usuário"
-          value={usuario}
-          onChange={(event) =>
-            setUsuario(event.target.value.replace(/[^a-zA-ZÀ-ÿ]/g, ""))
-          }
-        />
-
-        <label htmlFor="senha">Senha</label>
-        <div className={styles.campoSenha}>
-          <input
-            id="senha"
-            type={mostrarSenha ? "text" : "password"}
-            placeholder="Crie uma senha"
-            value={senha}
-            maxLength={5}
-            onChange={(event) => setSenha(event.target.value)}
-          />
-
-          <button
-            type="button"
-            onClick={() => setMostrarSenha(!mostrarSenha)}
-            aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
-          >
-            {mostrarSenha ? "🙈" : "👁"}
-          </button>
-        </div>
-
-        <label htmlFor="confirmarSenha">Confirmar senha</label>
-        <div className={styles.campoSenha}>
-          <input
-            id="confirmarSenha"
-            type={mostrarConfirmarSenha ? "text" : "password"}
-            placeholder="Digite a senha novamente"
-            value={confirmarSenha}
-            maxLength={5}
-            onChange={(event) => setConfirmarSenha(event.target.value)}
-          />
-
-          <button
-            type="button"
-            onClick={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}
-            aria-label={
-              mostrarConfirmarSenha ? "Ocultar senha" : "Mostrar senha"
-            }
-          >
-            {mostrarConfirmarSenha ? "🙈" : "👁"}
-          </button>
-        </div>
-        <div className={styles.campogenero}>
-          <label htmlFor="genero">Gênero</label>
-          <div className={styles.selectSet}>
-            <select
-              id="genero"
-              name="genero"
-              value={genero}
-              onChange={(e) => setGenero(e.target.value)}
-              required
-            >
-              <option value="">Selecione</option>
-              <option value="Masculino">Masculino</option>
-              <option value="Feminino">Feminino</option>
-            </select>
+        {carregarLogin ? (
+          <div className={styles.carregamentoLogin}>
+            <LoadingF mensagem="Voltando para o login..." />
           </div>
-        </div>
-        <button type="submit">Criar conta</button>
+        ) : (
+          <>
+            <p>Crie sua conta</p>
 
-        <div className={styles.voltarLogin}>
-          <span>Já tem uma conta?</span>
-          <button type="button" onClick={() => navigate("/login")}>
-            Entrar
-          </button>
-        </div>
+            <label htmlFor="usuario">Usuário</label>
+            <input
+              id="usuario"
+              type="text"
+              placeholder="Digite seu usuário"
+              value={usuario}
+              onChange={(event) =>
+                setUsuario(event.target.value.replace(/[^a-zA-ZÀ-ÿ]/g, ""))
+              }
+            />
+
+            <label htmlFor="senha">Senha</label>
+            <div className={styles.campoSenha}>
+              <input
+                id="senha"
+                type={mostrarSenha ? "text" : "password"}
+                placeholder="Crie uma senha"
+                value={senha}
+                maxLength={5}
+                onChange={(event) => setSenha(event.target.value)}
+              />
+
+              <button
+                type="button"
+                onClick={() => setMostrarSenha(!mostrarSenha)}
+                aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
+              >
+                {mostrarSenha ? "🙈" : "👁"}
+              </button>
+            </div>
+
+            <label htmlFor="confirmarSenha">Confirmar senha</label>
+            <div className={styles.campoSenha}>
+              <input
+                id="confirmarSenha"
+                type={mostrarConfirmarSenha ? "text" : "password"}
+                placeholder="Digite a senha novamente"
+                value={confirmarSenha}
+                maxLength={5}
+                onChange={(event) => setConfirmarSenha(event.target.value)}
+              />
+
+              <button
+                type="button"
+                onClick={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}
+                aria-label={
+                  mostrarConfirmarSenha ? "Ocultar senha" : "Mostrar senha"
+                }
+              >
+                {mostrarConfirmarSenha ? "🙈" : "👁"}
+              </button>
+            </div>
+            <div className={styles.campogenero}>
+              <label htmlFor="genero">Gênero</label>
+              <div className={styles.selectSet}>
+                <select
+                  id="genero"
+                  name="genero"
+                  value={genero}
+                  onChange={(e) => setGenero(e.target.value)}
+                  required
+                >
+                  <option value="">Selecione</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit">Criar conta</button>
+
+            <div className={styles.voltarLogin}>
+              <span>Já tem uma conta?</span>
+              <button type="button" onClick={irParaLogin}>
+                Entrar
+              </button>
+            </div>
+          </>
+        )}
       </form>
     </div>
   );
