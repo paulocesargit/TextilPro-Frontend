@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 
 import { Login } from "../pages/Login/Login.jsx";
 import { Cadastro } from "../pages/Cadastro/Cadastro.jsx";
+import { Privacidade } from "../pages/Privacidade/Privacidade.jsx";
 import { Dashboard } from "../pages/Dashboard/Dashboard.jsx";
 import { MainLayout } from "../layouts/Mainlayout.jsx";
 import { ProtectedRoute } from "../components/ProtectedReact.jsx";
@@ -18,6 +19,7 @@ export function AppRoutes() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/privacidade" element={<Privacidade />} />
         <Route path="*" element={<NotFound />} />
 
         <Route element={<ProtectedRoute />}>

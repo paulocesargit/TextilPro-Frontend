@@ -169,3 +169,38 @@
   font-size: 12px;
   pointer-events: none;
 }
+
+.termos {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 16px;
+  width: 100%;
+}
+
+.formulario .termos input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 24px 0 0;
+  padding: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.termos label {
+  margin: 24px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #333333;
+}
+
+.linkTermos {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #2563eb;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}

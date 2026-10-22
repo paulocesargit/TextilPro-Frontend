@@ -13,6 +13,7 @@ export function Cadastro() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
   const [carregarLogin, setcarregarLogin] = useState(false);
+  const [aceitouTermos, setAceitouTermos] = useState(false);
   const [genero, setGenero] = useState("");
 
   const navigate = useNavigate();
@@ -27,6 +28,13 @@ export function Cadastro() {
 
     if (senha !== confirmarSenha) {
       toast.error("As senhas não coincidem.");
+      return;
+    }
+
+    if (!aceitouTermos) {
+      toast.warning(
+        "Você precisa aceitar os termos e a política de privacidade.",
+      );
       return;
     }
 
@@ -156,6 +164,26 @@ export function Cadastro() {
                   <option value="Masculino">Masculino</option>
                   <option value="Feminino">Feminino</option>
                 </select>
+              </div>
+              <div className={styles.termos}>
+                <input
+                  type="checkbox"
+                  id="aceitouTermos"
+                  checked={aceitouTermos}
+                  onChange={(event) => setAceitouTermos(event.target.checked)}
+                />
+
+                <label htmlFor="aceitouTermos">
+                  Li e aceito os{" "}
+                  <button
+                    type="button"
+                    className={styles.linkTermos}
+                    onClick={() => navigate("/privacidade")}
+                  >
+                    termos de uso e a política de privacidade
+                  </button>
+                  do TextilPro.
+                </label>
               </div>
             </div>
             <button type="submit">Criar conta</button>
