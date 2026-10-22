@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatarValor, formatarData } from "../../utils/formatters";
 import styles from "./Pedidos.module.css";
 
 const pedidosIniciais = [
@@ -117,17 +118,6 @@ export function Pedidos() {
   const pedidosConcluidos = pedidos.filter(
     (pedido) => pedido.status === "Concluído",
   ).length;
-
-  function formatarData(data) {
-    return new Date(`${data}T12:00:00`).toLocaleDateString("pt-BR");
-  }
-
-  function formatarValor(valor) {
-    return valor.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-  }
 
   return (
     <main className={styles.pedidos}>

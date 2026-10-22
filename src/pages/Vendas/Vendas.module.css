@@ -355,6 +355,12 @@
   cursor: not-allowed;
 }
 
+.vendasTabela td.semResultados {
+  padding: 32px !important;
+  color: var(--cor-texto-secundario);
+  text-align: center;
+}
+
 /* Ajustes para telas menores */
 
 @media (max-width: 768px) {

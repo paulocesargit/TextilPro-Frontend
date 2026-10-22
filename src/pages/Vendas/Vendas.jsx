@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
+import { formatarValor } from "../../utils/formatters";
 import { toast } from "sonner";
 import styles from "./Vendas.module.css";
 
@@ -151,13 +152,6 @@ export function Vendas() {
   ).length;
 
   const valorFinal = Math.max(0, Number(valor || 0) - Number(desconto || 0));
-
-  function formatarValor(valor) {
-    return valor.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
-  }
 
   return (
     <div className={styles.vendas}>
@@ -407,7 +401,9 @@ export function Vendas() {
 
               {vendas.length === 0 && (
                 <tr>
-                  <td colSpan="8">Nenhuma venda cadastrada.</td>
+                  <td colSpan="8" className={styles.semResultados}>
+                    Nenhuma venda cadastrada.
+                  </td>
                 </tr>
               )}
             </tbody>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { formatarValor } from "../../utils/formatters";
 import styles from "./Estoque.module.css";
 import { toast } from "sonner";
 
@@ -272,12 +273,7 @@ export function Estoque() {
                   <td>{produto.categoria}</td>
                   <td>{produto.quantidade} un.</td>
 
-                  <td>
-                    {produto.preco.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </td>
+                  <td>{formatarValor(produto.preco)}</td>
 
                   <td>
                     <span
