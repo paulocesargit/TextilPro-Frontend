@@ -102,26 +102,48 @@ A estrutura abaixo é um exemplo e deve ser ajustada para corresponder aos diret
 
 ```text
 textilpro-frontend/
-├── assets/
-│   └── logo.png
 ├── public/
+│   └──logo.png
+│
+│
 ├── src/
+│   ├── assets/
+│   │   └── images/
+│   │
 │   ├── components/
-│   │   └── Sidebar/
+│   │   ├── Sidebar/
+│   │   ├── Loading/
+│   │   ├── ProtectedRoute/
+│   │   ├── Creditos/
+│   │   └── BotaoCreditos/
+│   │
 │   ├── layouts/
+│   │   └── MainLayout.jsx
+│   │
 │   ├── pages/
 │   │   ├── Login/
+│   │   ├── Cadastro/
 │   │   ├── Dashboard/
 │   │   ├── Vendas/
 │   │   ├── Estoque/
 │   │   ├── Pedidos/
-│   │   └── Configuracoes/
-│   │
+│   │   ├── Configuracoes/
+│   │   └── NotFound/
 │   │
 │   ├── routes/
+│   │   └── Routes.jsx
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── utils/
+│   │   └── formatters.js
+│   │
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── index.css
+│
+├── .env
 ├── .gitignore
 ├── index.html
 ├── package.json

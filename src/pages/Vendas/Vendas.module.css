@@ -139,8 +139,6 @@
   font-size: 20px;
 }
 
-/* Área para gerar o Pix */
-
 .vendasPix {
   display: flex;
   flex-direction: column;
@@ -212,8 +210,6 @@
   height: auto;
 }
 
-/* Botões do formulário */
-
 .vendasAcoes {
   display: flex;
   flex-direction: row;
@@ -238,8 +234,6 @@
   margin: 0;
   white-space: nowrap;
 }
-
-/* Botões secundários */
 
 .vendasBotaoSecundario,
 .vendasBotaoCancelar,
@@ -285,8 +279,6 @@
   opacity: 0.8;
 }
 
-/* Botões da tabela */
-
 .vendasAcoesTabela {
   display: flex;
   flex-direction: row;
@@ -319,8 +311,6 @@
 .vendasBotaoExcluir:hover {
   background-color: #f5d0cb;
 }
-
-/* Tabela de vendas */
 
 .vendasTabela {
   width: 100%;
@@ -360,8 +350,6 @@
   color: var(--cor-texto-secundario);
   text-align: center;
 }
-
-/* Ajustes para telas menores */
 
 @media (max-width: 768px) {
   .vendas {
