@@ -98,23 +98,22 @@ O TextilPro busca oferecer uma experiência simples e consistente, priorizando a
 
 ## 📂 Estrutura do projeto
 
-A estrutura abaixo é um exemplo e deve ser ajustada para corresponder aos diretórios reais do repositório.
-
 ```text
 textilpro-frontend/
 ├── public/
-│   └──logo.png
+│   └──cacto_agreste.svg
 │
 │
 ├── src/
 │   ├── assets/
-│   │   └── images/
 │   │
 │   ├── components/
 │   │   ├── Sidebar/
 │   │   ├── Loading/
 │   │   ├── ProtectedRoute/
 │   │   ├── Creditos/
+│   │   ├── Loanding/
+│   │   ├── LoadingFormulario/
 │   │   └── BotaoCreditos/
 │   │
 │   ├── layouts/
@@ -128,6 +127,7 @@ textilpro-frontend/
 │   │   ├── Estoque/
 │   │   ├── Pedidos/
 │   │   ├── Configuracoes/
+│   │   ├── Privacidade/
 │   │   └── NotFound/
 │   │
 │   ├── routes/
@@ -177,10 +177,8 @@ textilpro-frontend/
 ### 1. Clone o repositório
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/paulocesargit/TextilPro-Frontend.git
 ```
-
-Substitua `URL_DO_REPOSITORIO` pelo endereço real do repositório no GitHub.
 
 ### 2. Entre na pasta do projeto
 
