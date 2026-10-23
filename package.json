@@ -1,7 +1,9 @@
 {
-  "name": "sistemadecaixa",
+  "name": "TextilPro",
+  "version": "1.0.0",
+  "description": "Sistema de gestao para negocios Textil",
+  "author": "Paulo Cesar",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
