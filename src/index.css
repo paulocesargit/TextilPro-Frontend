@@ -44,6 +44,42 @@
   --cor-erro: #f87171;
 }
 
+:root {
+  --fonte-sistema: "Inter", sans-serif;
+}
+
+:root[data-fonte="inter"] {
+  --fonte-sistema: "Inter", sans-serif;
+}
+
+:root[data-fonte="atkinson"] {
+  --fonte-sistema: "Atkinson Hyperlegible", sans-serif;
+}
+
+:root[data-fonte="lexend"] {
+  --fonte-sistema: "Lexend", sans-serif;
+}
+
+:root {
+  --tamanho-fonte: 16px;
+}
+
+:root[data-tamanho="normal"] {
+  --tamanho-fonte: 16px;
+}
+
+:root[data-tamanho="grande"] {
+  --tamanho-fonte: 18px;
+}
+
+:root[data-tamanho="muito-grande"] {
+  --tamanho-fonte: 20px;
+}
+
+:root[data-tamanho="extra-grande"] {
+  --tamanho-fonte: 22px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -59,7 +95,8 @@ body {
   min-height: 100vh;
   color: var(--cor-texto);
   background: var(--cor-fundo);
-  font-family: "Inter", sans-serif;
+  font-family: var(--fonte-sistema);
+  font-size: var(--tamanho-fonte);
   transition:
     background-color 0.2s,
     color 0.2s;

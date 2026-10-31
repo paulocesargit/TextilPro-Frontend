@@ -26,6 +26,22 @@ export function Configuracoes() {
     return localStorage.getItem(`tema_${usuarioAtual}`) || "claro";
   });
 
+  const [fonte, setFonte] = useState(() => {
+    const usuarioAtual = localStorage.getItem("usuario");
+    const aparencia =
+      JSON.parse(localStorage.getItem(`aparencia_${usuarioAtual}`)) || {};
+
+    return aparencia.fonte || "inter";
+  });
+
+  const [tamanhoFonte, setTamanhoFonte] = useState(() => {
+    const usuarioAtual = localStorage.getItem("usuario");
+    const aparencia =
+      JSON.parse(localStorage.getItem(`aparencia_${usuarioAtual}`)) || {};
+
+    return aparencia.tamanhoFonte || "normal";
+  });
+
   const [empresa, setEmpresa] = useState(() => {
     return (
       JSON.parse(localStorage.getItem("dadosEmpresa")) || {
@@ -55,6 +71,15 @@ export function Configuracoes() {
 
     document.documentElement.setAttribute("data-tema", tema);
   }, [tema]);
+
+  useEffect(() => {
+    aplicarAparencia(fonte, tamanhoFonte);
+  }, [fonte, tamanhoFonte]);
+
+  function aplicarAparencia(novaFonte, novoTamanho) {
+    document.documentElement.setAttribute("data-fonte", novaFonte);
+    document.documentElement.setAttribute("data-tamanho", novoTamanho);
+  }
 
   function atualizarEmpresa(event) {
     const { name, value } = event.target;
@@ -146,10 +171,44 @@ export function Configuracoes() {
     toast.success("Dados da conta atualizados com sucesso!");
   }
 
-  function restaurarPadrao() {
-    setTema("claro");
+  function salvarAparencia() {
+    const usuarioAtual = localStorage.getItem("usuario");
 
-    toast.success("Tema claro restaurado!");
+    const preferencias = {
+      fonte,
+      tamanhoFonte,
+    };
+
+    localStorage.setItem(
+      `aparencia_${usuarioAtual}`,
+      JSON.stringify(preferencias),
+    );
+
+    aplicarAparencia(fonte, tamanhoFonte);
+
+    toast.success("Preferências de leitura salvas com sucesso!");
+  }
+
+  function restaurarPadrao() {
+    const usuarioAtual = localStorage.getItem("usuario");
+
+    setTema("claro");
+    setFonte("inter");
+    setTamanhoFonte("normal");
+
+    localStorage.setItem(`tema_${usuarioAtual}`, "claro");
+
+    localStorage.setItem(
+      `aparencia_${usuarioAtual}`,
+      JSON.stringify({
+        fonte: "inter",
+        tamanhoFonte: "normal",
+      }),
+    );
+
+    aplicarAparencia("inter", "normal");
+
+    toast.success("Configurações restauradas com sucesso!");
   }
 
   return (
@@ -158,6 +217,7 @@ export function Configuracoes() {
         <h1>Configurações</h1>
         <p>Gerencie os dados da empresa e personalize o TextilPro.</p>
       </header>
+
       <section className={styles.secao}>
         <div className={styles.tituloSecao}>
           <Building2 size={22} />
@@ -172,7 +232,6 @@ export function Configuracoes() {
           <div className={styles.formulario}>
             <div className={styles.campo}>
               <label htmlFor="nome">Nome da empresa</label>
-
               <input
                 id="nome"
                 name="nome"
@@ -186,7 +245,6 @@ export function Configuracoes() {
 
             <div className={styles.campo}>
               <label htmlFor="cnpj">CNPJ</label>
-
               <input
                 id="cnpj"
                 name="cnpj"
@@ -199,7 +257,6 @@ export function Configuracoes() {
 
             <div className={styles.campo}>
               <label htmlFor="telefone">Telefone</label>
-
               <input
                 id="telefone"
                 name="telefone"
@@ -212,7 +269,6 @@ export function Configuracoes() {
 
             <div className={styles.campo}>
               <label htmlFor="email">E-mail</label>
-
               <input
                 id="email"
                 name="email"
@@ -225,7 +281,6 @@ export function Configuracoes() {
 
             <div className={styles.campo}>
               <label htmlFor="cidade">Cidade</label>
-
               <input
                 id="cidade"
                 name="cidade"
@@ -238,7 +293,6 @@ export function Configuracoes() {
 
             <div className={styles.campo}>
               <label htmlFor="estado">Estado</label>
-
               <input
                 id="estado"
                 name="estado"
@@ -279,7 +333,6 @@ export function Configuracoes() {
           <div className={styles.formulario}>
             <div className={styles.campo}>
               <label htmlFor="usuario">Nome de usuário</label>
-
               <input
                 id="usuario"
                 type="text"
@@ -294,7 +347,6 @@ export function Configuracoes() {
 
             <div className={styles.campo}>
               <label htmlFor="senhaAtual">Senha atual</label>
-
               <input
                 id="senhaAtual"
                 type="password"
@@ -308,7 +360,6 @@ export function Configuracoes() {
 
             <div className={styles.campo}>
               <label htmlFor="novaSenha">Nova senha</label>
-
               <input
                 id="novaSenha"
                 type="password"
@@ -321,7 +372,6 @@ export function Configuracoes() {
 
             <div className={styles.campo}>
               <label htmlFor="confirmarSenha">Confirmar nova senha</label>
-
               <input
                 id="confirmarSenha"
                 type="password"
@@ -387,6 +437,61 @@ export function Configuracoes() {
 
       <section className={styles.secao}>
         <div className={styles.tituloSecao}>
+          <Info size={22} />
+
+          <div>
+            <h2>Fonte e leitura</h2>
+            <p>Personalize a aparência dos textos do sistema.</p>
+          </div>
+        </div>
+
+        <div className={styles.opcoesLeitura}>
+          <div className={styles.campoLeitura}>
+            <h3>Tipo de fonte</h3>
+            <p>Escolha uma fonte para facilitar sua leitura.</p>
+
+            <select
+              className={styles.seletor}
+              value={fonte}
+              onChange={(event) => setFonte(event.target.value)}
+            >
+              <option value="inter">Inter (Padrão)</option>
+              <option value="atkinson">Atkinson Hyperlegible</option>
+              <option value="lexend">Lexend</option>
+            </select>
+          </div>
+
+          <div className={styles.campoLeitura}>
+            <h3>Tamanho das letras</h3>
+            <p>Ajuste o tamanho dos textos do sistema.</p>
+
+            <select
+              className={styles.seletor}
+              value={tamanhoFonte}
+              onChange={(event) => setTamanhoFonte(event.target.value)}
+            >
+              <option value="normal">Normal</option>
+              <option value="grande">Grande</option>
+              <option value="muito-grande">Muito grande</option>
+              <option value="extra-grande">Extra grande</option>
+            </select>
+          </div>
+        </div>
+
+        <div className={styles.acoesFormulario}>
+          <button
+            type="button"
+            className={styles.botaoSalvar}
+            onClick={salvarAparencia}
+          >
+            <Save size={17} />
+            Salvar preferências
+          </button>
+        </div>
+      </section>
+
+      <section className={styles.secao}>
+        <div className={styles.tituloSecao}>
           <RotateCcw size={22} />
 
           <div>
@@ -398,7 +503,7 @@ export function Configuracoes() {
         <div className={styles.opcao}>
           <div>
             <h3>Restaurar configurações</h3>
-            <p>Volte ao tema claro padrão do sistema.</p>
+            <p>Volte ao tema, fonte e tamanho padrão do sistema.</p>
           </div>
 
           <button
