@@ -215,110 +215,8 @@ export function Configuracoes() {
     <main className={styles.pagina}>
       <header className={styles.cabecalho}>
         <h1>Configurações</h1>
-        <p>Gerencie os dados da empresa e personalize o TextilPro.</p>
+        <p>Gerencie os seus dados e personalize o TextilPro.</p>
       </header>
-
-      <section className={styles.secao}>
-        <div className={styles.tituloSecao}>
-          <Building2 size={22} />
-
-          <div>
-            <h2>Dados da empresa</h2>
-            <p>Gerencie as informações da sua confecção.</p>
-          </div>
-        </div>
-
-        <form onSubmit={salvarEmpresa}>
-          <div className={styles.formulario}>
-            <div className={styles.campo}>
-              <label htmlFor="nome">Nome da empresa</label>
-              <input
-                id="nome"
-                name="nome"
-                type="text"
-                placeholder="Ex.: Agreste Têxtil"
-                value={empresa.nome}
-                onChange={atualizarEmpresa}
-                required
-              />
-            </div>
-
-            <div className={styles.campo}>
-              <label htmlFor="cnpj">CNPJ</label>
-              <input
-                id="cnpj"
-                name="cnpj"
-                type="text"
-                placeholder="Digite o CNPJ"
-                value={empresa.cnpj}
-                onChange={atualizarEmpresa}
-              />
-            </div>
-
-            <div className={styles.campo}>
-              <label htmlFor="telefone">Telefone</label>
-              <input
-                id="telefone"
-                name="telefone"
-                type="tel"
-                placeholder="Digite o telefone"
-                value={empresa.telefone}
-                onChange={atualizarEmpresa}
-              />
-            </div>
-
-            <div className={styles.campo}>
-              <label htmlFor="email">E-mail</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="empresa@email.com"
-                value={empresa.email}
-                onChange={atualizarEmpresa}
-              />
-            </div>
-
-            <div className={styles.campo}>
-              <label htmlFor="cidade">Cidade</label>
-              <input
-                id="cidade"
-                name="cidade"
-                type="text"
-                placeholder="Digite a cidade"
-                value={empresa.cidade}
-                onChange={atualizarEmpresa}
-              />
-            </div>
-
-            <div className={styles.campo}>
-              <label htmlFor="estado">Estado</label>
-              <input
-                id="estado"
-                name="estado"
-                type="text"
-                placeholder="Ex.: PE"
-                maxLength={2}
-                value={empresa.estado}
-                onChange={(event) =>
-                  setEmpresa((dadosAtuais) => ({
-                    ...dadosAtuais,
-                    estado: event.target.value.toUpperCase(),
-                  }))
-                }
-              />
-            </div>
-          </div>
-
-          <div className={styles.acoesFormulario}>
-            <button type="submit" className={styles.botaoSalvar}>
-              <Save size={17} />
-              Salvar dados da empresa
-            </button>
-          </div>
-        </form>
-      </section>
-
       <section className={styles.secao}>
         <div className={styles.tituloSecao}>
           <UserRound size={22} />
@@ -396,45 +294,6 @@ export function Configuracoes() {
           </div>
         </form>
       </section>
-
-      <section className={styles.secao}>
-        <div className={styles.tituloSecao}>
-          <Palette size={22} />
-
-          <div>
-            <h2>Aparência</h2>
-            <p>Personalize as cores do sistema.</p>
-          </div>
-        </div>
-
-        <div className={styles.opcao}>
-          <div>
-            <h3>Tema do sistema</h3>
-            <p>Escolha entre o tema claro e o escuro.</p>
-          </div>
-
-          <div className={styles.botoesTema}>
-            <button
-              type="button"
-              className={tema === "claro" ? styles.selecionado : ""}
-              onClick={() => setTema("claro")}
-            >
-              <Sun size={18} />
-              Claro
-            </button>
-
-            <button
-              type="button"
-              className={tema === "escuro" ? styles.selecionado : ""}
-              onClick={() => setTema("escuro")}
-            >
-              <Moon size={18} />
-              Escuro
-            </button>
-          </div>
-        </div>
-      </section>
-
       <section className={styles.secao}>
         <div className={styles.tituloSecao}>
           <Info size={22} />
@@ -489,6 +348,44 @@ export function Configuracoes() {
           </button>
         </div>
       </section>
+      <section className={styles.secao}>
+        <div className={styles.tituloSecao}>
+          <Palette size={22} />
+
+          <div>
+            <h2>Aparência</h2>
+            <p>Personalize as cores do sistema.</p>
+          </div>
+        </div>
+
+        <div className={styles.opcao}>
+          <div>
+            <h3>Tema do sistema</h3>
+            <p>Escolha entre o tema claro e o escuro.</p>
+          </div>
+          <div className={styles.botoesAcoes}>
+            <div className={styles.botoesTema}>
+              <button
+                type="button"
+                className={tema === "claro" ? styles.selecionado : ""}
+                onClick={() => setTema("claro")}
+              >
+                <Sun size={18} />
+                Claro
+              </button>
+
+              <button
+                type="button"
+                className={tema === "escuro" ? styles.selecionado : ""}
+                onClick={() => setTema("escuro")}
+              >
+                <Moon size={18} />
+                Escuro
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className={styles.secao}>
         <div className={styles.tituloSecao}>
@@ -505,15 +402,16 @@ export function Configuracoes() {
             <h3>Restaurar configurações</h3>
             <p>Volte ao tema, fonte e tamanho padrão do sistema.</p>
           </div>
-
-          <button
-            type="button"
-            className={styles.botaoRestaurar}
-            onClick={restaurarPadrao}
-          >
-            <RotateCcw size={16} />
-            Restaurar padrão
-          </button>
+          <div className={styles.botoesAcoes}>
+            <button
+              type="button"
+              className={styles.botaoRestaurar}
+              onClick={restaurarPadrao}
+            >
+              <RotateCcw size={16} />
+              Restaurar padrão
+            </button>
+          </div>
         </div>
       </section>
 
@@ -533,15 +431,16 @@ export function Configuracoes() {
             <p>Sistema de gerenciamento para negócios têxteis.</p>
             <span className={styles.versao}>Versão 1.0.0</span>
           </div>
-
-          <button
-            type="button"
-            className={styles.botaoCreditos}
-            onClick={() => setCreditosAberto(true)}
-          >
-            <CodeXml size={18} />
-            Ver créditos
-          </button>
+          <div className={styles.botoesAcoes}>
+            <button
+              type="button"
+              className={styles.botaoCreditos}
+              onClick={() => setCreditosAberto(true)}
+            >
+              <CodeXml size={18} />
+              Ver créditos
+            </button>
+          </div>
         </div>
       </section>
 
