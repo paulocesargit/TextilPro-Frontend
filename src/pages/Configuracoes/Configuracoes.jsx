@@ -42,19 +42,6 @@ export function Configuracoes() {
     return aparencia.tamanhoFonte || "normal";
   });
 
-  const [empresa, setEmpresa] = useState(() => {
-    return (
-      JSON.parse(localStorage.getItem("dadosEmpresa")) || {
-        nome: "",
-        cnpj: "",
-        telefone: "",
-        email: "",
-        cidade: "",
-        estado: "",
-      }
-    );
-  });
-
   const [usuario, setUsuario] = useState(localStorage.getItem("usuario") || "");
 
   const [senhaAtual, setSenhaAtual] = useState("");
@@ -79,23 +66,6 @@ export function Configuracoes() {
   function aplicarAparencia(novaFonte, novoTamanho) {
     document.documentElement.setAttribute("data-fonte", novaFonte);
     document.documentElement.setAttribute("data-tamanho", novoTamanho);
-  }
-
-  function atualizarEmpresa(event) {
-    const { name, value } = event.target;
-
-    setEmpresa((dadosAtuais) => ({
-      ...dadosAtuais,
-      [name]: value,
-    }));
-  }
-
-  function salvarEmpresa(event) {
-    event.preventDefault();
-
-    localStorage.setItem("dadosEmpresa", JSON.stringify(empresa));
-
-    toast.success("Dados da empresa salvos com sucesso!");
   }
 
   function salvarConta(event) {

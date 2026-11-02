@@ -158,7 +158,7 @@ export function Vendas() {
       <div className={styles.vendasCabecalho}>
         <div>
           <h1>Controle de vendas</h1>
-          <p>Consulte e registre as vendas da Agreste Têxtil.</p>
+          <p>Consulte e registre as suas vendas.</p>
         </div>
       </div>
 
